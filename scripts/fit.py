@@ -25,6 +25,10 @@ def main(dirname, idx):
     rms = 1.4826 * np.median(np.abs(spectrum[good] - med))
     prior_H_amplitude = np.percentile(spectrum, 99.0)
 
+    # skip if there does not appear to be any signal
+    if not np.any(spectrum > 5.0*rms):
+        return {"idx": idx, "exception": "no apparent signal"}
+
     # save
     data = {
         "velocity": channel,
