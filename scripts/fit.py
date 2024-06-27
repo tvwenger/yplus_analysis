@@ -56,11 +56,11 @@ def main(dirname, idx):
         sample_kwargs = {
             "chains": 4,
             "cores": 4,
-            "n_init": 100_000,
+            "n_init": 20_000,
             "init_kwargs": fit_kwargs,
             "nuts_kwargs": {"target_accept": 0.8},
         }
-        opt.optimize(sample_kwargs=sample_kwargs, fit_kwargs=fit_kwargs, bic_threshold=10.0)
+        opt.optimize(sample_kwargs=sample_kwargs, bic_threshold=10.0, approx=False)
 
         # get BICs for each model
         bics = {0: opt.best_model.null_bic()}
