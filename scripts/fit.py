@@ -20,14 +20,20 @@ def main(dirname, idx):
         return {"idx": idx, "exception": "no data"}
 
     # estimate rms from line-free channels
-    good = (channel < -150.0) + (channel > 150.0)
-    med = np.median(spectrum[good])
-    rms = 1.4826 * np.median(np.abs(spectrum[good] - med))
+    meds = np.array([
+        np.median(spectrum[channel < -150.0]),
+        np.median(spectrum[channel > 150.0]),
+    ])
+    rmss = np.array([
+        1.4826 * np.median(np.abs(spectrum[channel < -150.0] - meds[0])),
+        1.4826 * np.median(np.abs(spectrum[channel > 150.0] - meds[1])),
+    ])
+    rms = np.mean(rmss)
     prior_H_amplitude = np.percentile(spectrum, 99.0)
 
     # skip if there does not appear to be any signal
-    if not np.any(spectrum > 5.0*rms):
-        return {"idx": idx, "exception": "no apparent signal"}
+    if not np.any(spectrum > 3.0*rms):
+        return {"idx": idx, "exception": "no apparent signal", "spec_rms": rms}
 
     # save
     data = {
@@ -73,11 +79,11 @@ def main(dirname, idx):
                 bics[n_gauss] = model.bic(solution=0)
             else:
                 bics[n_gauss] = np.inf
-        result = {"idx": idx, "best_model": opt.best_model, "bics": bics}
+        result = {"idx": idx, "best_model": opt.best_model, "bics": bics, "spec_rms": rms}
         return result
 
     except Exception as ex:
-        return {"idx": idx, "exception": ex}
+        return {"idx": idx, "exception": ex, "spec_rms": rms}
 
 
 if __name__ == "__main__":

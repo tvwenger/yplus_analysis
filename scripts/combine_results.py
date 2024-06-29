@@ -44,6 +44,7 @@ for dataset in datasets:
     data["good MCMC"] = False
     data["exception MCMC"] = ""
     data["n_gauss BIC"] = None
+    data["spec_rms"] = 0.0
 
     for idx, row in data.iterrows():
         print(f"{dataset} {idx}")
@@ -55,6 +56,10 @@ for dataset in datasets:
             continue
         with open(resultfname, "rb") as f:
             result = dill.load(f)
+
+        # pack rms
+        if "spec_rms" in result.keys():
+            data.at[idx, "spec_rms"] = result["spec_rms"]
 
         # catch failures
         if "exception" in result.keys():
@@ -74,6 +79,7 @@ for dataset in datasets:
         bic = result["best_model"].bic(solution=0)
         bic_threshold = 10.0
         if result["best_model"].null_bic()+bic_threshold < bic:
+            data.at[idx, "exception MCMC"] = "prefers null model"
             continue
 
         # save result
