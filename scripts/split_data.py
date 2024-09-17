@@ -4,8 +4,8 @@ import pickle
 fnames = [
     "../data/hii_noise.pickle",
     "../data/hii_intensity-noise.pickle",
-#    "../data/dig_noise_1.0.pickle",
-#    "../data/dig_intensity-noise_1.0.pickle",
+    "../data/dig_noise_1.0.pickle",
+    "../data/dig_intensity-noise_1.0.pickle",
 ]
 
 for fname in fnames:

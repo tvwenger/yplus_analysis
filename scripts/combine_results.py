@@ -57,10 +57,6 @@ for dataset in datasets:
         with open(resultfname, "rb") as f:
             result = dill.load(f)
 
-        # pack rms
-        if "spec_rms" in result.keys():
-            data.at[idx, "spec_rms"] = result["spec_rms"]
-
         # catch failures
         if "exception" in result.keys():
             data.at[idx, "exception MCMC"] = result["exception"]
@@ -101,8 +97,8 @@ for dataset in datasets:
         data.at[idx, "He Height MCMC"] = np.array([point_stats['mean'][f"He_amplitude[{i}]"] for i in range(n_gauss)])
         data.at[idx, "He Velocity MCMC"] = np.array([point_stats['mean'][f"He_center[{i}]"] for i in range(n_gauss)])
         data.at[idx, "He FWHM MCMC"] = np.array([point_stats['mean'][f"He_fwhm[{i}]"] for i in range(n_gauss)])
-        data.at[idx, "He/H FWHM Ratio MCMC"] = point_stats['mean']["He_H_fwhm_ratio"]
-        data.at[idx, "yplus MCMC"] = point_stats['mean']["yplus"]
+        data.at[idx, "He/H FWHM Ratio MCMC"] = np.array([point_stats['mean'][f"He_H_fwhm_ratio[{i}]"] for i in range(n_gauss)])
+        data.at[idx, "yplus MCMC"] = np.array([point_stats['mean'][f"yplus[{i}]"] for i in range(n_gauss)])
         data.at[idx, "coeffs MCMC"] = np.array([point_stats['mean'][f"coeffs[{i}]"] for i in range(baseline_degree+1)])
         data.at[idx, "err H Height MCMC"] = np.array([point_stats['sd'][f"H_amplitude[{i}]"] for i in range(n_gauss)])
         data.at[idx, "err H Velocity MCMC"] = np.array([point_stats['sd'][f"H_center[{i}]"] for i in range(n_gauss)])
@@ -110,8 +106,8 @@ for dataset in datasets:
         data.at[idx, "err He Height MCMC"] = np.array([point_stats['sd'][f"He_amplitude[{i}]"] for i in range(n_gauss)])
         data.at[idx, "err He Velocity MCMC"] = np.array([point_stats['sd'][f"He_center[{i}]"] for i in range(n_gauss)])
         data.at[idx, "err He FWHM MCMC"] = np.array([point_stats['sd'][f"He_fwhm[{i}]"] for i in range(n_gauss)])
-        data.at[idx, "err He/H FWHM Ratio MCMC"] = point_stats['sd']["He_H_fwhm_ratio"]
-        data.at[idx, "err yplus MCMC"] = point_stats['sd']["yplus"]
+        data.at[idx, "err He/H FWHM Ratio MCMC"] = np.array([point_stats['sd'][f"He_H_fwhm_ratio[{i}]"] for i in range(n_gauss)])
+        data.at[idx, "err yplus MCMC"] = np.array([point_stats['sd'][f"yplus[{i}]"] for i in range(n_gauss)])
         data.at[idx, "err coeffs MCMC"] = np.array([point_stats['sd'][f"coeffs[{i}]"] for i in range(baseline_degree+1)])
         
     outfname = f"results/{dataset}-mcmc.pickle"

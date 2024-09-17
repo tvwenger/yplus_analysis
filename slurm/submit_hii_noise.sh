@@ -20,7 +20,7 @@ START_IDX=$(( $SLURM_ARRAY_TASK_ID * $PER_JOB ))
 END_IDX=$(( ( $SLURM_ARRAY_TASK_ID + 1 ) * $PER_JOB ))
 
 eval "$(conda shell.bash hook)"
-conda activate mcmc_yplus
+conda activate bayes_yplus
 
 for (( idx=$START_IDX; idx<$END_IDX; idx++ )); do
     if [ $idx -ge $NUM_SPEC ]; then
