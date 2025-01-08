@@ -17,7 +17,7 @@ arguments = $(datadir) $(Process)
 # Data handling
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
-transfer_input_files = /home/twenger2/yplus_analysis/scripts/fit.py, /home/twenger2/yplus_analysis/data/$(datadir)/$(Process).pkl
+transfer_input_files = /home/twenger2/yplus_analysis/scripts/fit.py, /home/twenger2/yplus_analysis/data/$(datadir)/$(Process).pickle
 transfer_output_remaps = "$(Process)_bayes_yplus.pkl = /home/twenger2/yplus_analysis/results/$(datadir)/$(Process)_bayes_yplus.pkl"
 
 # Logging
@@ -30,4 +30,4 @@ request_cpus = 8
 request_memory = 4GB
 request_disk = 1GB
 
-queue idx matching /home/twenger2/yplus_analysis/data/$(datadir)/*.pkl
+queue idx matching /home/twenger2/yplus_analysis/data/$(datadir)/*.pickle

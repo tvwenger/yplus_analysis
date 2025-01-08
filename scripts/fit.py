@@ -151,10 +151,10 @@ if __name__ == "__main__":
     htc_type = sys.argv[3]
 
     if htc_type == "slurm":
-        infile = f"data/{dirname}/{idx}.pkl"
+        infile = f"data/{dirname}/{idx}.pickle"
         outfile = f"results/{dirname}/{idx}_bayes_yplus.pkl"
     else:
-        infile = f"{idx}.pkl"
+        infile = f"{idx}.pickle"
         outfile = f"{idx}_bayes_yplus.pkl"
 
     output = main(idx, infile)
