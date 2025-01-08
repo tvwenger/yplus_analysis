@@ -28,7 +28,7 @@ output = /home/twenger2/yplus_analysis/logs/bayes_yplus_$(Cluster)_$(Process).ou
 # Resource request
 request_cpus = 8
 request_memory = 4GB
-request_disk = 1GB
+request_disk = 24GB
 
 # limit jobs at a time
 max_materialize = 10000
