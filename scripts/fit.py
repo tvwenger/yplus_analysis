@@ -63,6 +63,10 @@ def main(idx, infile):
         ylabel=r"$T_B$ (mK)",
     )
     data = {"observation": observation}
+    for label, dataset in data.items():
+        # HACK: normalize data by noise
+        dataset._brightness_offset = np.median(dataset.brightness)
+        dataset._brightness_scale = dataset.noise
 
     try:
         # Initialize optimizer
