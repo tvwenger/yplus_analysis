@@ -1,0 +1,15 @@
+# test_container.sub
+# Test contatiner
+
+# Apptainer
+requirements = (HasCHTCStaging == true)
+container_image = file:///staging/twenger2/bayes_yplus-v1.3.1.sif
+
+log = test_container.log
+
++IsBuildJob = true
+request_cpus = 1
+request_memory = 12GB
+request_disk = 50GB
+
+queue

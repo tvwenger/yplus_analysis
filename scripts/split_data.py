@@ -5,9 +5,9 @@ import pickle
 datadir = sys.argv[1]
 
 fnames = [
-    f"{datadir}/hii_noise.pickle",
-    f"{datadir}/hii_intensity-noise.pickle",
-    f"{datadir}/dig_noise_1.0.pickle",
+    # f"{datadir}/hii_noise.pickle",
+    # f"{datadir}/hii_intensity-noise.pickle",
+    # f"{datadir}/dig_noise_1.0.pickle",
     f"{datadir}/dig_intensity-noise_1.0.pickle",
 ]
 
