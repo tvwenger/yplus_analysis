@@ -1,0 +1,26 @@
+# HTC Submit File
+# bayes_yplus data splitting
+
+# Apptainer
+requirements = (HasCHTCStaging == true)
+container_image = file:///staging/twenger2/bayes_yplus-v1.3.1.sif
+
+# Executable
+executable = /staging/twenger2/yplus_analysis/scripts/split_data.sh
+arguments = 
+
+# Data handling
+should_transfer_files = YES
+transfer_input_files = /staging/twenger2/yplus_analysis/scripts/split_data.py
+
+# Logging
+log = /staging/twenger2/yplus_analysis/logs/bayes_yplus_$(Cluster)_$(Process).log
+error = /staging/twenger2/yplus_analysis/logs/bayes_yplus_$(Cluster)_$(Process).err
+output = /staging/twenger2/yplus_analysis/logs/bayes_yplus_$(Cluster)_$(Process).out
+
+# Resource request
+request_cpus = 8
+request_memory = 12GB
+request_disk = 12GB
+
+queue 1
