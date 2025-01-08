@@ -7,7 +7,7 @@ requirements = (HasCHTCStaging == true)
 
 +IsBuildJob = true
 request_cpus = 1
-request_memory = 4GB
-request_disk = 12GB
+request_memory = 12GB
+request_disk = 50GB
 
 queue
