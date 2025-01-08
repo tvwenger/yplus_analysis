@@ -10,8 +10,7 @@ executable = /staging/twenger2/yplus_analysis/scripts/split_data.sh
 arguments = 
 
 # Data handling
-should_transfer_files = YES
-transfer_input_files = /staging/twenger2/yplus_analysis/scripts/split_data.py
+should_transfer_files = NO
 
 # Logging
 log = /staging/twenger2/yplus_analysis/logs/bayes_yplus_$(Cluster)_$(Process).log
