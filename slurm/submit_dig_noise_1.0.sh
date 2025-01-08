@@ -7,7 +7,7 @@
 #SBATCH --mail-user=twenger2@wisc.edu
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4
+#SBATCH --cpus-per-task=8
 #SBATCH --export=ALL
 #SBATCH --time 24:00:00
 #SBATCH --array=0-999%180
@@ -24,19 +24,13 @@ conda activate bayes_yplus
 
 for (( idx=$START_IDX; idx<$END_IDX; idx++ )); do
     if [ $idx -ge $NUM_SPEC ]; then
-	break
-    fi
-    
-    fmtidx=$(printf "%06d" $idx)
-    # check if result already exists, then skip
-    if [ -f "results/${DIR_NAME}_results/$fmtidx.pkl" ]; then
-        echo "results/${DIR_NAME}_results/$fmtidx.pkl already exists!"
-        continue
+	    break
     fi
 
     # temporary pytensor compiledir
     tmpdir=`mktemp -d`
     echo "starting to analyze $idx"
-    PYTENSOR_FLAGS="base_compiledir=$tmpdir" python scripts/fit.py $DIR_NAME $idx
+    PYTENSOR_FLAGS="base_compiledir=$tmpdir" python scripts/fit.py $DIR_NAME $idx slurm
     rm -rf $tmpdir
 done
+
