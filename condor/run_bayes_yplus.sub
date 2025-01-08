@@ -1,12 +1,5 @@
-# HTC Submit File
-# bayes_yplus analysis
-# run like: condor_submit datadir=hii_noise run_bayes_yplus.sub
+# run_bayes_yplus.sub
 
-# Docker container
-# universe = docker
-# docker_image = tvwenger/bayes_yplus:v1.3.1
-
-# Apptainer
 requirements = (HasCHTCStaging == true)
 container_image = file:///staging/twenger2/bayes_yplus-v1.3.1.sif
 
@@ -27,10 +20,10 @@ output = /home/twenger2/yplus_analysis/logs/bayes_yplus_$(Cluster)_$(Process).ou
 
 # Resource request
 request_cpus = 8
-request_memory = 4GB
-request_disk = 24GB
+request_memory = 8GB
+request_disk = 64GB
 
-# limit jobs at a time
+# limit number of jobs running at a time
 max_materialize = 10000
 
 queue idx matching /home/twenger2/yplus_analysis/data/$(datadir)/*.pickle
