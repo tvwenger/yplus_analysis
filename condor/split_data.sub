@@ -11,6 +11,7 @@ arguments =
 
 # Data handling
 should_transfer_files = NO
+transfer_input_files =
 
 # Logging
 log = /staging/twenger2/yplus_analysis/logs/bayes_yplus_$(Cluster)_$(Process).log
