@@ -26,7 +26,4 @@ request_cpus = 8
 request_memory = 8GB
 request_disk = 64GB
 
-# limit number of jobs running at a time
-max_materialize = 20000
-
 queue idx matching /home/twenger2/yplus_analysis/data/$(datadir)/*.pickle

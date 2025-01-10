@@ -128,10 +128,10 @@ def main(dataset, bic_threshold=10.0):
             sightline_results.append(sightline_result)
             continue
 
-        # add model baseline and hyper-parameters to sightline results
-        _BASELINE_DEGREE = 1
+        # add model baseline parameters to sightline results
+        _BASELINE_DEGREE = 2
         _STATS = ["mean", "sd", "hdi_3%", "hdi_97%"]
-        for key in ["fwhm_L"] + [f"baseline_observation_norm[{i}]" for i in range(_BASELINE_DEGREE + 1)]:
+        for key in [f"baseline_observation_norm[{i}]" for i in range(_BASELINE_DEGREE + 1)]:
             for stat in _STATS:
                 sightline_result[f"{key}_{stat}"] = best_model["results"]["summary"][stat][key]
 
@@ -139,15 +139,15 @@ def main(dataset, bic_threshold=10.0):
         coeffs = np.array(
             [
                 best_model["results"]["summary"]["mean"][f"baseline_observation_norm[{i}]"] / (i + 1.0) ** i
-                for i in range(_BASELINE_DEGREE)
+                for i in range(_BASELINE_DEGREE + 1)
             ]
         )
-        model = baseline = Polynomial(coeffs)(chan_norm) * spec_rms + spec_median
+        baseline = Polynomial(coeffs)(chan_norm) * spec_rms + spec_median
+        model = baseline.copy()
 
         # loop over clouds
         for cloud in range(best_n_gauss):
             # evaluate model for this cloud
-            # IGNORING fwhm_L !!!
             cloud_H_model = gaussian(
                 chan,
                 best_model["results"]["summary"]["mean"][f"H_amplitude[{cloud}]"],
