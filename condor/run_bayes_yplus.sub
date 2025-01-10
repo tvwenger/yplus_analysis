@@ -1,7 +1,10 @@
 # run_bayes_yplus.sub
 
-requirements = (HasCHTCStaging == true)
-container_image = file:///staging/twenger2/bayes_yplus-v1.3.1.sif
+#requirements = (HasCHTCStaging == true)
+#container_image = file:///staging/twenger2/bayes_yplus-v1.3.1.sif
+
+container_image = docker://tvwenger/bayes_yplus:v1.3.1
+universe = container
 
 # Executable
 executable = /home/twenger2/yplus_analysis/scripts/fit.sh
