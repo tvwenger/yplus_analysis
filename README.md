@@ -13,14 +13,18 @@ conda activate bayes_yplus
 ## Docker
 The `bayes_yplus` environment is also provided via a `docker` container.
 ```
-docker build -t tvwenger/bayes_yplus:v1.3.1 .
-docker push tvwenger/bayes_yplus:v1.3.1
+docker build -t tvwenger/bayes_yplus:v1.3.2 .
+docker push tvwenger/bayes_yplus:v1.3.2
 ```
+
+N.B. Regarding following Apptainer instructions: there's currently a bug that prevents Apptainer images from being distributed
+to jobs when those jobs are submitted as a late marginalization factory. There's also a bug that prevents containers from
+accessing DockerHub... But for now we just hope DockerHub works and ignore these Apptainer instructions.
 
 This `docker` container can be [converted to an Apptainer image](https://chtc.cs.wisc.edu/uw-research-computing/htc-docker-to-apptainer) on CHTC:
 ```
 condor_submit -i condor/build.sub
-apptainer build /staging/tvwenger/bayes_yplus-v1.3.1.sif docker://tvwenger/bayes_yplus:v1.3.1
+apptainer build /staging/tvwenger/bayes_yplus-v1.3.2.sif docker://tvwenger/bayes_yplus:v1.3.2
 ```
 
 Or, export the container locally,
@@ -66,6 +70,6 @@ The script `condor/run_bayes_yplus.sub` is a Condor script that we use to analyz
 ```
 condor_submit datadir="hii_noise" run_bayes_yplus.sub
 condor_submit datadir="hii_intensity-noise" run_bayes_yplus.sub
-condor_submit datadir="dig_noise_1.0" run_bayes_yplus.sub
-condor_submit datadir="dig_intensity-noise_1.0" run_bayes_yplus.sub
+condor_submit -factory datadir="dig_noise_1.0" run_bayes_yplus.sub
+condor_submit -factory datadir="dig_intensity-noise_1.0" run_bayes_yplus.sub
 ```

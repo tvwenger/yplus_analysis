@@ -1,9 +1,9 @@
 # run_bayes_yplus.sub
 
 #requirements = (HasCHTCStaging == true)
-#container_image = file:///staging/twenger2/bayes_yplus-v1.3.1.sif
+#container_image = file:///staging/twenger2/bayes_yplus-v1.3.2.sif
 
-container_image = docker://tvwenger/bayes_yplus:v1.3.1
+container_image = docker://tvwenger/bayes_yplus:v1.3.2
 universe = container
 
 # Executable
@@ -17,9 +17,9 @@ transfer_input_files = /home/twenger2/yplus_analysis/scripts/fit.py, /home/tweng
 transfer_output_remaps = "$(Process)_bayes_yplus.pkl = /home/twenger2/yplus_analysis/results/$(datadir)/$(Process)_bayes_yplus.pkl"
 
 # Logging
-log = /home/twenger2/yplus_analysis/logs/bayes_yplus_$(Cluster)_$(Process).log
-error = /home/twenger2/yplus_analysis/logs/bayes_yplus_$(Cluster)_$(Process).err
-output = /home/twenger2/yplus_analysis/logs/bayes_yplus_$(Cluster)_$(Process).out
+log = /home/twenger2/yplus_analysis/logs/$(datadir)/bayes_yplus_$(Cluster)_$(Process).log
+error = /home/twenger2/yplus_analysis/logs/$(datadir)/bayes_yplus_$(Cluster)_$(Process).err
+output = /home/twenger2/yplus_analysis/logs/$(datadir)/bayes_yplus_$(Cluster)_$(Process).out
 
 # Resource request
 request_cpus = 8
@@ -27,6 +27,6 @@ request_memory = 8GB
 request_disk = 64GB
 
 # limit number of jobs running at a time
-max_materialize = 10000
+max_materialize = 20000
 
 queue idx matching /home/twenger2/yplus_analysis/data/$(datadir)/*.pickle

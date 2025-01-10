@@ -30,4 +30,4 @@ dependencies:
     - "nbsphinx"
     - "numpydoc"
     - "bayes_spec>=1.7.2"
-    - "bayes_yplus>=1.3.1"
+    - "bayes_yplus>=1.3.2"

@@ -9,6 +9,7 @@ import pickle
 
 import numpy as np
 
+import arviz as az
 import pymc as pm
 import bayes_spec
 import bayes_yplus
@@ -73,18 +74,17 @@ def main(idx, infile):
         opt = Optimize(
             YPlusModel,
             data,
-            max_n_clouds=5,
-            baseline_degree=1,
+            max_n_clouds=6,
+            baseline_degree=2,
             seed=1234,
             verbose=True,
         )
         opt.add_priors(
             prior_H_area=1000.0,  # width of the H_area prior (mK km s-1)
-            prior_H_center=[0.0, 25.0],  # mean and width of H_center prior (km s-1)
-            prior_H_fwhm=[25.0, 10.0],  # mean and width of H FWHM prior (km s-1)
-            prior_He_H_fwhm_ratio=[1.0, 0.1],  # mean and width of He/H FWHM ratio prior
+            prior_H_center=[0.0, 30.0],  # mean and width of H_center prior (km s-1)
+            prior_H_fwhm=[30.0, 15.0],  # mean and width of H FWHM prior (km s-1)
+            prior_He_H_fwhm_ratio=[0.9, 0.1],  # mean and width of He/H FWHM ratio prior
             prior_yplus=0.05,  # width of yplus prior
-            prior_fwhm_L=50.0,  # width of Lorentzian FWHM prior (km s-1)
             prior_rms=None,  # do not infer spectral rms
             prior_baseline_coeffs=None,  # use default baseline priors
             ordered=False,  # do not assume ordered components
@@ -114,7 +114,7 @@ def main(idx, infile):
                 bic = model.bic(solution=solution)
 
                 # get summary
-                summary = pm.summary(model.trace[f"solution_{solution}"], round_to=None)
+                summary = az.summary(model.trace[f"solution_{solution}"], round_to="none")
 
                 # check convergence
                 converged = summary["r_hat"].max() < 1.05
